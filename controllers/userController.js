@@ -65,10 +65,10 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body; //ya9ra mn front les valeurs passes
         const user = await User.findOne({ email }); //verification est ce que user mawjoud wela avec le email foulan ben foulen
-        if (!user) return res.status(400).json({ message: 'Invalid email or password' });
+        if (!user) return res.status(400).json({ message: 'Invalid email' });
 
         const isMatch = await bcrypt.compare(password, user.password); //verification de mot de passe
-        if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' }); 
+        if (!isMatch) return res.status(400).json({ message: 'Invalid  password' }); 
 
         const token = jwt.sign({ userId: user._id ,userName:user.name}, process.env.JWT_SECRET, { expiresIn: '1h' }); // generate token en associant data elli nheb nsajlha fih
 
